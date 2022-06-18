@@ -4,6 +4,15 @@ import Menu from './components/Menu';
 import Footer from './components/Footer';
 import AnecdoteList from './components/AnecdoteList';
 import CreateNew from './components/CreateNew';
+import {
+  Routes,
+  Route,
+  Link,
+  Navigate,
+  useParams,
+  useNavigate,
+  useMatch
+} from 'react-router-dom';
 
 const App = () => {
   const [anecdotes, setAnecdotes] = useState([
@@ -22,7 +31,7 @@ const App = () => {
       id: 2
     }
   ]);
-
+  const [user, setUser] = useState(null);
   const [notification, setNotification] = useState('');
 
   const addNew = (anecdote) => {
