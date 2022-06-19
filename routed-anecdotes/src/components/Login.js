@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 
-const Login = (props) => {
+const Login = (login) => {
   const navigate = useNavigate();
 
   const onSubmit = (event) => {
     event.preventDefault();
-    props.onLogin('Jugurtha');
+    login('Jugurtha');
     navigate('/');
   };
 

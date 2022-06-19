@@ -31,18 +31,16 @@ const App = () => {
       id: 2
     }
   ]);
-  const [user, setUser] = useState(null);
+
   const [notification, setNotification] = useState('');
 
-  const addNew = (anecdote) => {
-    anecdote.id = Math.round(Math.random() * 10000);
-    setAnecdotes(anecdotes.concat(anecdote));
-  };
-
-  const anecdoteById = (id) => anecdotes.find((a) => a.id === id);
+  const match = useMatch('/anecdotes/:id');
+  const singleAnecdote = match
+    ? anecdotes.find((anecdote) => anecdote.id === Number(match.params.id))
+    : null;
 
   const vote = (id) => {
-    const anecdote = anecdoteById(id);
+    const anecdote = singleAnecdote(id);
 
     const voted = {
       ...anecdote,
@@ -52,12 +50,17 @@ const App = () => {
     setAnecdotes(anecdotes.map((a) => (a.id === id ? voted : a)));
   };
 
+  const addNew = (anecdote) => {
+    anecdote.id = Math.round(Math.random() * 10000);
+    setAnecdotes(anecdotes.concat(anecdote));
+  };
+
   return (
     <div>
       <h1>Software anecdotes</h1>
 
       <Menu />
-      <PagesRoute anecdotes={anecdotes} />
+      <PagesRoute anecdotes={anecdotes} anecdote={singleAnecdote} />
       <Footer />
     </div>
   );

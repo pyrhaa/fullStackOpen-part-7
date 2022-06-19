@@ -1,7 +1,5 @@
-import AnecdoteList from '../components/AnecdoteList';
-
 const Home = () => {
-  return <p>Azul</p>;
+  return <p>ⴰⵣⵓⵍ ⴼⵍⵍⴰⵡⵏ !</p>;
 };
 
 export default Home;
