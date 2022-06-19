@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import Menu from './components/Menu';
 import Footer from './components/Footer';
-import AnecdoteList from './components/AnecdoteList';
-import CreateNew from './components/CreateNew';
-import About from './components/About';
-import Home from './components/Home';
+import PagesRoute from './routes/PagesRoute';
+
 import {
   Switch,
   Routes,
@@ -59,13 +57,8 @@ const App = () => {
       <h1>Software anecdotes</h1>
 
       <Menu />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
-      {/* <AnecdoteList anecdotes={anecdotes} />
-      <CreateNew addNew={addNew} />
-      <Footer /> */}
+      <PagesRoute anecdotes={anecdotes} />
+      <Footer />
     </div>
   );
 };
