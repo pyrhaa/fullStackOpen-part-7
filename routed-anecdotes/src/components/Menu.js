@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
+import About from './About';
 
 const Menu = () => {
   const padding = {
@@ -6,15 +7,20 @@ const Menu = () => {
   };
   return (
     <div>
-      <Link style={padding} to="/anecdotes">
-        anecdotes
-      </Link>
-      <Link style={padding} to="/create-new">
-        create new
-      </Link>
-      <Link style={padding} to="/about">
-        about
-      </Link>
+      <div>
+        <Link style={padding} to="/anecdotes">
+          anecdotes
+        </Link>
+        <Link style={padding} to="/create-new">
+          create new
+        </Link>
+        <Link style={padding} to="/about">
+          about
+        </Link>
+      </div>
+      <Routes>
+        <Route path="/about" element={<About />} />
+      </Routes>
     </div>
 
     // <div>
