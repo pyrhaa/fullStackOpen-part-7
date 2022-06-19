@@ -1,4 +1,4 @@
-import { Link, Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes, Switch } from 'react-router-dom';
 import About from './About';
 
 const Menu = () => {
@@ -7,7 +7,10 @@ const Menu = () => {
   };
   return (
     <div>
-      <div>
+      <nav>
+        <Link style={padding} to="/">
+          Home
+        </Link>
         <Link style={padding} to="/anecdotes">
           anecdotes
         </Link>
@@ -17,10 +20,7 @@ const Menu = () => {
         <Link style={padding} to="/about">
           about
         </Link>
-      </div>
-      <Routes>
-        <Route path="/about" element={<About />} />
-      </Routes>
+      </nav>
     </div>
 
     // <div>

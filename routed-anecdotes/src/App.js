@@ -3,7 +3,10 @@ import Menu from './components/Menu';
 import Footer from './components/Footer';
 import AnecdoteList from './components/AnecdoteList';
 import CreateNew from './components/CreateNew';
+import About from './components/About';
+import Home from './components/Home';
 import {
+  Switch,
   Routes,
   Route,
   Link,
@@ -54,10 +57,15 @@ const App = () => {
   return (
     <div>
       <h1>Software anecdotes</h1>
+
       <Menu />
-      <AnecdoteList anecdotes={anecdotes} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+      {/* <AnecdoteList anecdotes={anecdotes} />
       <CreateNew addNew={addNew} />
-      <Footer />
+      <Footer /> */}
     </div>
   );
 };
