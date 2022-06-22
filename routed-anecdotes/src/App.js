@@ -2,17 +2,7 @@ import { useState } from 'react';
 import Menu from './components/Menu';
 import Footer from './components/Footer';
 import PagesRoute from './routes/PagesRoute';
-
-import {
-  Switch,
-  Routes,
-  Route,
-  Link,
-  Navigate,
-  useParams,
-  useNavigate,
-  useMatch
-} from 'react-router-dom';
+import { useMatch } from 'react-router-dom';
 
 const App = () => {
   const [anecdotes, setAnecdotes] = useState([
@@ -41,7 +31,7 @@ const App = () => {
 
   const vote = (id) => {
     const anecdote = singleAnecdote(id);
-
+    console.log('the log:', anecdote);
     const voted = {
       ...anecdote,
       votes: anecdote.votes + 1
@@ -53,6 +43,8 @@ const App = () => {
   const addNew = (anecdote) => {
     anecdote.id = Math.round(Math.random() * 10000);
     setAnecdotes(anecdotes.concat(anecdote));
+    setNotification(`the anecdote <${anecdote.content}> was created!`);
+    setTimeout(() => setNotification(''), 5000);
   };
 
   return (
@@ -60,7 +52,13 @@ const App = () => {
       <h1>Software anecdotes</h1>
 
       <Menu />
-      <PagesRoute anecdotes={anecdotes} anecdote={singleAnecdote} />
+      <PagesRoute
+        anecdotes={anecdotes}
+        anecdote={singleAnecdote}
+        addNew={addNew}
+        vote={vote}
+        notification={notification}
+      />
       <Footer />
     </div>
   );

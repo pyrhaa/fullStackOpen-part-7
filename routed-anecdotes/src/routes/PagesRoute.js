@@ -6,20 +6,22 @@ import Anecdote from '../pages/Anecdote';
 import About from '../pages/About';
 import Home from '../pages/Home';
 
-const PagesRoute = ({ anecdotes, anecdote, login, user }) => {
+const PagesRoute = ({ anecdotes, anecdote, addNew, vote, notification }) => {
   return (
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
           path="/anecdotes"
-          element={<Anecdotes anecdotes={anecdotes} />}
+          element={
+            <Anecdotes anecdotes={anecdotes} notification={notification} />
+          }
         />
         <Route
           path="/anecdotes/:id"
-          element={<Anecdote anecdote={anecdote} />}
+          element={<Anecdote anecdote={anecdote} vote={vote} />}
         />
-        <Route path="/create" element={<CreateNew />} />
+        <Route path="/create" element={<CreateNew addNew={addNew} />} />
         <Route path="/about" element={<About />} />
       </Routes>
     </div>
