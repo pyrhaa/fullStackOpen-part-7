@@ -29,9 +29,10 @@ const App = () => {
     ? anecdotes.find((anecdote) => anecdote.id === Number(match.params.id))
     : null;
 
+  const anecdoteById = (id) => anecdotes.find((a) => a.id === id);
+
   const vote = (id) => {
-    const anecdote = singleAnecdote(id);
-    console.log('the log:', anecdote);
+    const anecdote = anecdoteById(id);
     const voted = {
       ...anecdote,
       votes: anecdote.votes + 1

@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import CreateNew from '../pages/CreateNew';
 import Anecdotes from '../pages/Anecdotes';
@@ -21,7 +21,16 @@ const PagesRoute = ({ anecdotes, anecdote, addNew, vote, notification }) => {
           path="/anecdotes/:id"
           element={<Anecdote anecdote={anecdote} vote={vote} />}
         />
-        <Route path="/create" element={<CreateNew addNew={addNew} />} />
+        <Route
+          path="/create"
+          element={
+            notification ? (
+              <Navigate replace to="/anecdotes" />
+            ) : (
+              <CreateNew addNew={addNew} />
+            )
+          }
+        />
         <Route path="/about" element={<About />} />
       </Routes>
     </div>

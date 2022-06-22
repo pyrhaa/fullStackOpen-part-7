@@ -1,15 +1,18 @@
-// import AnecdoteList from '../components/AnecdoteList';
+const Anecdote = (props) => {
+  const handleClick = (e) => {
+    e.preventDefault();
+    props.vote(props.anecdote.id);
+  };
 
-const Anecdote = ({ anecdote, vote }) => {
   return (
     <div>
       <h2>
-        {anecdote.content} by {anecdote.author}
+        {props.anecdote.content} by {props.anecdote.author}
       </h2>
-      <p>has {anecdote.votes} votes</p>
-      <button onClick={vote}>vote</button>
+      <p>has {props.anecdote.votes} votes</p>
+      <button onClick={handleClick}>vote</button>
       <p>
-        for more info <a href={anecdote.info}>{anecdote.info}</a>
+        for more info <a href={props.anecdote.info}>{props.anecdote.info}</a>
       </p>
     </div>
   );
