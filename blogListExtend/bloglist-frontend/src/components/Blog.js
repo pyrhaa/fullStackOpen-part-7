@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import ShowHide from './ShowHide';
+import React, { useRef } from "react";
+import ShowHide from "./ShowHide";
 
 const Blog = ({ blog, upBlog, removeBlog }) => {
   const blogFullRef = useRef();
@@ -7,16 +7,16 @@ const Blog = ({ blog, upBlog, removeBlog }) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
-    border: 'solid',
+    border: "solid",
     borderWidth: 1,
-    marginBottom: 5
+    marginBottom: 5,
   };
 
   const likeUp = (e) => {
     e.preventDefault();
     const updatedBlog = {
       ...blog,
-      likes: blog.likes + 1
+      likes: blog.likes + 1,
     };
     upBlog(updatedBlog);
   };

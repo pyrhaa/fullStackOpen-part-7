@@ -1,17 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
-import Blog from './components/Blog';
-import Notification from './components/Notification';
-import BlogForm from './components/BlogForm';
-import Togglable from './components/Togglable';
-import blogService from './services/blogs';
-import loginService from './services/login';
+import React, { useState, useEffect, useRef } from "react";
+import Blog from "./components/Blog";
+import Notification from "./components/Notification";
+import BlogForm from "./components/BlogForm";
+import Togglable from "./components/Togglable";
+import blogService from "./services/blogs";
+import loginService from "./services/login";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [message, setMessage] = useState(null);
-  const [notif, setNotif] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [notif, setNotif] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
 
   const blogFormRef = useRef();
@@ -27,7 +27,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser');
+    const loggedUserJSON = window.localStorage.getItem("loggedBlogappUser");
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
       setUser(user);
@@ -52,13 +52,13 @@ const App = () => {
 
   const deleteBlog = async (id) => {
     try {
-      console.log('before:', blogs);
+      console.log("before:", blogs);
       const deletedBlog = await blogService.deletes(id);
-      console.log('deletdblog:', deletedBlog);
+      console.log("deletdblog:", deletedBlog);
       setBlogs(blogs.filter((blog) => blog.id !== id));
-      console.log('after:', blogs);
+      console.log("after:", blogs);
       setMessage(true);
-      setNotif('The blog have been removed');
+      setNotif("The blog have been removed");
       setTimeout(() => {
         setMessage(null);
       }, 5000);
@@ -88,14 +88,14 @@ const App = () => {
     e.preventDefault();
     try {
       const user = await loginService.login({ username, password });
-      window.localStorage.setItem('loggedBlogappUser', JSON.stringify(user));
+      window.localStorage.setItem("loggedBlogappUser", JSON.stringify(user));
       blogService.setToken(user.token);
       setUser(user);
-      setUsername('');
-      setPassword('');
+      setUsername("");
+      setPassword("");
     } catch (err) {
       setMessage(false);
-      setNotif('wrong username or password');
+      setNotif("wrong username or password");
       console.log(err);
       setTimeout(() => {
         setMessage(null);
