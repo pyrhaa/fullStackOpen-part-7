@@ -53,6 +53,8 @@
     "eslint-plugin-jest": "^24.7.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jest-watch-typeahead": "^0.6.5",
-    "prettier": "2.7.1"
+    "prettier": "2.7.1",
+    "deep-freeze": "0.0.1",
+    "redux-devtools-extension": "^2.13.8"
   }
 }
