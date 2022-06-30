@@ -1,55 +1,44 @@
-import React, { useState } from "react";
+import { connect } from "react-redux";
+import { createBlog } from "../reducers/blogReducers";
 
-const BlogForm = ({ createBlog }) => {
-  const [newBlog, setNewBlog] = useState({ title: "", author: "", url: "" });
-
-  const addBlog = (e) => {
+const BlogForm = (props) => {
+  const create = async (e) => {
     e.preventDefault();
-    createBlog({
-      title: newBlog.title,
-      author: newBlog.author,
-      url: newBlog.url,
-    });
-    setNewBlog({ title: "", author: "", url: "" });
+    const content = {
+      title: e.target.title.value,
+      author: e.target.author.value,
+      url: e.target.url.value,
+    };
+    props.createBlog(content);
+    // props.notifChange(`<${content}> is created`, 5);
+    e.target.title.value = "";
+    e.target.author.value = "";
+    e.target.url.value = "";
   };
 
+  // const addBlog = (e) => {
+  //   e.preventDefault();
+  //   createBlog({
+  //     title: newBlog.title,
+  //     author: newBlog.author,
+  //     url: newBlog.url,
+  //   });
+  //   setNewBlog({ title: "", author: "", url: "" });
+  // };
+
   return (
-    <form className="form" onSubmit={addBlog}>
+    <form className="form" onSubmit={create}>
       <div>
         title:
-        <input
-          className="titleInput"
-          type="text"
-          name="Title"
-          value={newBlog.title}
-          onChange={({ target }) =>
-            setNewBlog({ ...newBlog, title: target.value })
-          }
-        />
+        <input className="titleInput" type="text" name="title" />
       </div>
       <div>
         author:
-        <input
-          className="authorInput"
-          type="text"
-          name="Author"
-          value={newBlog.author}
-          onChange={({ target }) =>
-            setNewBlog({ ...newBlog, author: target.value })
-          }
-        />
+        <input className="authorInput" type="text" name="author" />
       </div>
       <div>
         url:
-        <input
-          className="urlInput"
-          type="text"
-          name="Url"
-          value={newBlog.url}
-          onChange={({ target }) =>
-            setNewBlog({ ...newBlog, url: target.value })
-          }
-        />
+        <input className="urlInput" type="text" name="url" />
       </div>
       <button className="submitBtn" type="submit">
         create
@@ -58,4 +47,13 @@ const BlogForm = ({ createBlog }) => {
   );
 };
 
-export default BlogForm;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createBlog: (value) => {
+      dispatch(createBlog(value));
+    },
+  };
+};
+
+const ConnectedBlogForm = connect(null, mapDispatchToProps)(BlogForm);
+export default ConnectedBlogForm;

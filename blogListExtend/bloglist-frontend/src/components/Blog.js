@@ -49,9 +49,9 @@ const Blog = () => {
         <p>{blogs.url}</p>
         <div>
           <p>likes {blogs.likes}</p>
-          <button id="likeBtn" onClick={vote}>
+          {/* <button id="likeBtn" onClick={vote(blogs)}>
             Like
-          </button>
+          </button> */}
         </div>
       </div>
     );

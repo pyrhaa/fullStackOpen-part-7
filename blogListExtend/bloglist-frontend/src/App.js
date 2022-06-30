@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Blog from "./components/Blog";
 // import Notification from "./components/Notification";
-// import BlogForm from "./components/BlogForm";
+import BlogForm from "./components/BlogForm";
 // import Togglable from "./components/Togglable";
 // import blogService from "./services/blogs";
 // import loginService from "./services/login";
@@ -19,6 +19,7 @@ const App = () => {
   // const blogFormRef = useRef();
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(initializeBlogs());
   }, [dispatch]);
@@ -148,9 +149,9 @@ const App = () => {
         {user.name} logged-in <button onClick={logout}>logout</button>
       </div> */}
       <h2>create new blog</h2>
-      {/* <Togglable buttonLabel="Blog Form" ref={blogFormRef}>
-        <BlogForm createBlog={addBlog} />
-      </Togglable> */}
+      {/* <Togglable buttonLabel="Blog Form" ref={blogFormRef}> */}
+      <BlogForm />
+      {/* </Togglable> */}
       <Blog />
     </div>
   );
