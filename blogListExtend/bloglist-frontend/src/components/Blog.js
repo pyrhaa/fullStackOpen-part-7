@@ -1,6 +1,6 @@
 // import ShowHide from "./ShowHide";
-import { useDispatch, useSelector } from "react-redux";
-import { voteOf } from "../reducers/blogReducers";
+import { useSelector } from "react-redux";
+// import { voteOf } from "../reducers/blogReducers";
 
 const Blog = () => {
   const blogStyle = {
@@ -19,13 +19,13 @@ const Blog = () => {
     // } else {
     return state.blogs;
   });
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const vote = (arg) => {
-    const data = arg;
-    dispatch(voteOf(data.id));
-    // dispatch(notifChange(`You voted for <${data.content}>`, 5));
-  };
+  // const vote = (arg) => {
+  //   const data = arg;
+  //   dispatch(voteOf(data.id));
+  //   dispatch(notifChange(`You voted for <${data.content}>`, 5));
+  // };
 
   // const likeUp = (e) => {
   //   e.preventDefault();

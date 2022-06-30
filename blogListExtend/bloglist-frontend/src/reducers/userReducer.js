@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import loginService from "../services/login";
 import blogService from "../services/blogs";
 
-const initialState = "";
+const initialState = null;
 
 const userSlice = createSlice({
   name: "user",
@@ -11,29 +11,29 @@ const userSlice = createSlice({
     setUser(state, action) {
       state = action.payload;
     },
+    logout(state = null, action) {
+      return state;
+    },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, logout } = userSlice.actions;
 
 export const login = (data) => {
   return async (dispatch) => {
-    try {
-      const { username, password } = data;
-      const user = await loginService.login({
-        username,
-        password,
-      });
-      window.localStorage.setItem("loggedBlogUser", JSON.stringify(user));
-      blogService.setToken(user.token);
-      dispatch({
-        type: "SET_USER",
-        data: user,
-      });
-    } catch (exception) {
-      return exception;
-    }
+    const { username, password } = data;
+    const user = await loginService.login({
+      username,
+      password,
+    });
+    blogService.setToken(user.token);
+    window.localStorage.setItem("loggedBlogappUser", JSON.stringify(user));
+    dispatch(setUser(user));
   };
+};
+
+export const logOut = () => {
+  return logOut;
 };
 
 export default userSlice.reducer;
