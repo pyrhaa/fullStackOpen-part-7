@@ -9,7 +9,7 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
   ],
   parserOptions: {
     ecmaFeatures: {
@@ -21,7 +21,6 @@ module.exports = {
   plugins: ["react", "jest", "cypress", "prettier"],
   rules: {
     "prettier/prettier": "error",
-    indent: ["error", 2],
     "linebreak-style": ["error", "unix"],
     quotes: ["error", "double"],
     semi: 0,

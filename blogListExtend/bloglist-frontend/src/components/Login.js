@@ -1,14 +1,16 @@
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { login } from "../reducers/userReducer";
 
-const Login = (props) => {
+const Login = () => {
+  const dispatch = useDispatch();
+
   const handleLog = async (e) => {
     e.preventDefault();
     const logger = {
       username: e.target.username.value,
       password: e.target.password.value,
     };
-    props.login(logger);
+    dispatch(login(logger));
   };
 
   return (
@@ -31,13 +33,4 @@ const Login = (props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    login: (value) => {
-      dispatch(login(value));
-    },
-  };
-};
-
-const ConnectedLogin = connect(null, mapDispatchToProps)(Login);
-export default ConnectedLogin;
+export default Login;

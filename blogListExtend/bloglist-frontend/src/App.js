@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Blog from "./components/Blog";
 // import Notification from "./components/Notification";
 import BlogForm from "./components/BlogForm";
@@ -8,13 +8,14 @@ import Login from "./components/Login";
 import blogService from "./services/blogs";
 // import loginService from "./services/login";
 import { initializeBlogs } from "./reducers/blogReducers";
-import { setUser, logOut } from "./reducers/userReducer";
+import { setUser } from "./reducers/userReducer";
 import { initializeUsers } from "./reducers/usersReducer";
 
-const App = (props) => {
+const App = () => {
   // const blogFormRef = useRef();
 
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     dispatch(initializeBlogs());
@@ -30,12 +31,7 @@ const App = (props) => {
     }
   }, []);
 
-  const handleLogout = () => {
-    dispatch(logOut());
-    window.localStorage.removeItem("loggedBlogappUser");
-  };
-
-  if (props.user === null) {
+  if (user === null) {
     return (
       <div>
         <h2>log in to application</h2>
@@ -49,7 +45,7 @@ const App = (props) => {
       <h2>blogs</h2>
       {/* <Notification res={message} text={notif} /> */}
       <div>
-        logged-in <button onClick={handleLogout}>logout</button>
+        logged-in <button>logout</button>
       </div>
       <h2>create new blog</h2>
       {/* <Togglable buttonLabel="Blog Form" ref={blogFormRef}> */}
