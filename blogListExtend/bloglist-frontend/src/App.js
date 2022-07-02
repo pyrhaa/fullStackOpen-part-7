@@ -5,10 +5,10 @@ import Blog from "./components/Blog";
 import BlogForm from "./components/BlogForm";
 import Login from "./components/Login";
 // import Togglable from "./components/Togglable";
-import blogService from "./services/blogs";
+// import blogService from "./services/blogs";
 // import loginService from "./services/login";
 import { initializeBlogs } from "./reducers/blogReducers";
-import { setUser } from "./reducers/userReducer";
+import { settingUser } from "./reducers/userReducer";
 import { initializeUsers } from "./reducers/usersReducer";
 
 const App = () => {
@@ -16,20 +16,16 @@ const App = () => {
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  console.log("user Selector: ", user);
+
+  useEffect(() => {
+    dispatch(settingUser());
+  }, []);
 
   useEffect(() => {
     dispatch(initializeBlogs());
     dispatch(initializeUsers());
   }, [dispatch]);
-
-  useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem("loggedBlogappUser");
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON);
-      setUser(user);
-      blogService.setToken(user.token);
-    }
-  }, []);
 
   if (user === null) {
     return (

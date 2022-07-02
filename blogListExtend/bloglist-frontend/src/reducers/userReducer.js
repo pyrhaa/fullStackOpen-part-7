@@ -9,10 +9,33 @@ const userSlice = createSlice({
     setUser(state, action) {
       state = action.payload;
     },
+    logOut() {
+      return null;
+    },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, logOut } = userSlice.actions;
+
+export const settingUser = () => {
+  const loggedUserJSON = window.localStorage.getItem("loggedBlogappUser");
+  if (loggedUserJSON) {
+    return async (dispatch) => {
+      const user = await JSON.parse(loggedUserJSON);
+      blogService.setToken(user.token);
+      dispatch(setUser(user));
+    };
+  }
+
+  return logOut();
+};
+
+export const logout = () => {
+  return (dispatch) => {
+    window.localStorage.removeItem("loggedBlogappUser");
+    dispatch(logOut());
+  };
+};
 
 export const login = (data) => {
   return async (dispatch) => {
@@ -21,12 +44,9 @@ export const login = (data) => {
       username,
       password,
     });
-    window.localStorage.setItem("loggedBlogUser", JSON.stringify(user));
+    window.localStorage.setItem("loggedBlogappUser", JSON.stringify(user));
     blogService.setToken(user.token);
-    dispatch({
-      type: "SET_USER",
-      data: user,
-    });
+    dispatch(settingUser());
   };
 };
 
