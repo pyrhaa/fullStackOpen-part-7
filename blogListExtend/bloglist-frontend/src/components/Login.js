@@ -6,11 +6,11 @@ const Login = () => {
 
   const handleLog = async (e) => {
     e.preventDefault();
-    const logger = {
-      username: e.target.username.value,
-      password: e.target.password.value,
-    };
-    dispatch(login(logger));
+    const username = e.target.username.value;
+    const password = e.target.password.value;
+    e.target.username.value = "";
+    e.target.password.value = "";
+    dispatch(login(username, password));
   };
 
   return (

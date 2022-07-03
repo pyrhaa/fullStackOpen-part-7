@@ -1,53 +1,60 @@
-import { createSlice } from "@reduxjs/toolkit";
 import loginService from "../services/login";
 import blogService from "../services/blogs";
 
-const userSlice = createSlice({
-  name: "user",
-  initialState: null,
-  reducers: {
-    setUser(state, action) {
-      state = action.payload;
-    },
-    logOut() {
-      return null;
-    },
-  },
-});
-
-export const { setUser, logOut } = userSlice.actions;
+const userReducer = (state = null, action) => {
+  switch (action.type) {
+    case "INIT_USER":
+      return action.user;
+    case "LOGIN":
+      return action.user;
+    case "LOGOUT":
+      return action.user;
+    default:
+      return state;
+  }
+};
 
 export const settingUser = () => {
   const loggedUserJSON = window.localStorage.getItem("loggedBlogappUser");
   if (loggedUserJSON) {
-    return async (dispatch) => {
-      const user = await JSON.parse(loggedUserJSON);
-      blogService.setToken(user.token);
-      dispatch(setUser(user));
+    const user = JSON.parse(loggedUserJSON);
+    blogService.setToken(user.token);
+    return {
+      type: "INIT_USER",
+      user: user,
     };
   }
 
-  return logOut();
-};
-
-export const logout = () => {
-  return (dispatch) => {
-    window.localStorage.removeItem("loggedBlogappUser");
-    dispatch(logOut());
+  return {
+    type: "INIT_USER",
+    user: null,
   };
 };
 
-export const login = (data) => {
+export const login = (username, password) => {
   return async (dispatch) => {
-    const { username, password } = data;
     const user = await loginService.login({
       username,
       password,
     });
+
     window.localStorage.setItem("loggedBlogappUser", JSON.stringify(user));
     blogService.setToken(user.token);
-    dispatch(settingUser());
+    dispatch({
+      type: "LOGIN",
+      user: user,
+    });
   };
 };
 
-export default userSlice.reducer;
+export const logout = () => {
+  return async (dispatch) => {
+    window.localStorage.removeItem("loggedBlogappUser");
+    dispatch({
+      type: "LOGOUT",
+      user: null,
+    });
+  };
+};
+
+export default userReducer;

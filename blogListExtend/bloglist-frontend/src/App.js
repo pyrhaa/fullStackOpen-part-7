@@ -8,7 +8,7 @@ import Login from "./components/Login";
 // import blogService from "./services/blogs";
 // import loginService from "./services/login";
 import { initializeBlogs } from "./reducers/blogReducers";
-import { settingUser } from "./reducers/userReducer";
+import { settingUser, logout } from "./reducers/userReducer";
 import { initializeUsers } from "./reducers/usersReducer";
 
 const App = () => {
@@ -20,36 +20,37 @@ const App = () => {
 
   useEffect(() => {
     dispatch(settingUser());
-  }, []);
-
-  useEffect(() => {
     dispatch(initializeBlogs());
     dispatch(initializeUsers());
   }, [dispatch]);
 
+  const handleLogout = async (event) => {
+    event.preventDefault();
+    dispatch(logout());
+  };
+
   if (user === null) {
     return (
       <div>
-        <h2>log in to application</h2>
         <Login />
       </div>
     );
-  }
-
-  return (
-    <div>
-      <h2>blogs</h2>
-      {/* <Notification res={message} text={notif} /> */}
+  } else {
+    return (
       <div>
-        logged-in <button>logout</button>
+        <h2>blogs</h2>
+        {/* <Notification res={message} text={notif} /> */}
+        <div>
+          logged-in <button onClick={handleLogout}>logout</button>
+        </div>
+        <h2>create new blog</h2>
+        {/* <Togglable buttonLabel="Blog Form" ref={blogFormRef}> */}
+        <BlogForm />
+        {/* </Togglable> */}
+        <Blog />
       </div>
-      <h2>create new blog</h2>
-      {/* <Togglable buttonLabel="Blog Form" ref={blogFormRef}> */}
-      <BlogForm />
-      {/* </Togglable> */}
-      <Blog />
-    </div>
-  );
+    );
+  }
 };
 
 export default App;
