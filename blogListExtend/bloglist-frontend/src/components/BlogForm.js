@@ -1,7 +1,9 @@
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
+import { notifChange } from "../reducers/notifReducer";
 import { createBlog } from "../reducers/blogReducers";
 
-const BlogForm = (props) => {
+const BlogForm = () => {
+  const dispatch = useDispatch();
   const create = async (e) => {
     e.preventDefault();
     const content = {
@@ -9,22 +11,12 @@ const BlogForm = (props) => {
       author: e.target.author.value,
       url: e.target.url.value,
     };
-    props.createBlog(content);
-    // props.notifChange(`<${content}> is created`, 5);
+    dispatch(createBlog(content));
+    dispatch(notifChange(`<${content.title}> is created`, 5));
     e.target.title.value = "";
     e.target.author.value = "";
     e.target.url.value = "";
   };
-
-  // const addBlog = (e) => {
-  //   e.preventDefault();
-  //   createBlog({
-  //     title: newBlog.title,
-  //     author: newBlog.author,
-  //     url: newBlog.url,
-  //   });
-  //   setNewBlog({ title: "", author: "", url: "" });
-  // };
 
   return (
     <form className="form" onSubmit={create}>
@@ -47,13 +39,4 @@ const BlogForm = (props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    createBlog: (value) => {
-      dispatch(createBlog(value));
-    },
-  };
-};
-
-const ConnectedBlogForm = connect(null, mapDispatchToProps)(BlogForm);
-export default ConnectedBlogForm;
+export default BlogForm;

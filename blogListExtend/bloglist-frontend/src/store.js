@@ -4,6 +4,7 @@ import blogReducer, { setBlogs } from "./reducers/blogReducers";
 import filterReducer from "./reducers/filterReducer";
 import userReducer from "./reducers/userReducer";
 import usersReducer from "./reducers/usersReducer";
+import notifReducer from "./reducers/notifReducer";
 import blogService from "./services/blogs";
 
 const store = configureStore(
@@ -13,6 +14,7 @@ const store = configureStore(
       user: userReducer,
       users: usersReducer,
       filter: filterReducer,
+      notification: notifReducer,
     },
   },
   composeWithDevTools()

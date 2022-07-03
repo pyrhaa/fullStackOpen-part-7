@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Blog from "./components/Blog";
-// import Notification from "./components/Notification";
+import Notification from "./components/Notification";
 import BlogForm from "./components/BlogForm";
 import Login from "./components/Login";
 // import Togglable from "./components/Togglable";
@@ -32,14 +32,15 @@ const App = () => {
   if (user === null) {
     return (
       <div>
+        <Notification />
         <Login />
       </div>
     );
   } else {
     return (
       <div>
+        <Notification />
         <h2>blogs</h2>
-        {/* <Notification res={message} text={notif} /> */}
         <div>
           logged-in <button onClick={handleLogout}>logout</button>
         </div>
