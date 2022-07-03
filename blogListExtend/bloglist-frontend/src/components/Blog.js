@@ -1,8 +1,11 @@
-// import ShowHide from "./ShowHide";
-import { useSelector } from "react-redux";
-// import { voteOf } from "../reducers/blogReducers";
+import React from "react";
+import ShowHide from "./ShowHide";
+import { useSelector, useDispatch } from "react-redux";
+import { voteOf } from "../reducers/blogReducers";
+import { notifChange } from "../reducers/notifReducer";
 
 const Blog = () => {
+  // const blogFullRef = useRef();
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -12,20 +15,20 @@ const Blog = () => {
   };
 
   const blogs = useSelector((state) => {
-    // if (state.filter.length) {
-    //   return state.blogs.filter((el) =>
-    //     el.content.toLowerCase().includes(state.filter)
-    //   );
-    // } else {
-    return state.blogs;
+    if (state.filter.length) {
+      return state.blogs.filter((el) =>
+        el.content.toLowerCase().includes(state.filter)
+      );
+    } else {
+      return state.blogs;
+    }
   });
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // const vote = (arg) => {
-  //   const data = arg;
-  //   dispatch(voteOf(data.id));
-  //   dispatch(notifChange(`You voted for <${data.content}>`, 5));
-  // };
+  const vote = (data) => {
+    dispatch(voteOf(data.id));
+    dispatch(notifChange(`You voted for <${data.title}>`, 5));
+  };
 
   // const likeUp = (e) => {
   //   e.preventDefault();
@@ -43,15 +46,20 @@ const Blog = () => {
   //   }
   // };
 
-  const FullBlogDetails = ({ blogs }) => {
+  const FullBlogDetails = ({ blog }) => {
     return (
       <div>
-        <p>{blogs.url}</p>
+        <p>{blog.url}</p>
         <div>
-          <p>likes {blogs.likes}</p>
-          {/* <button id="likeBtn" onClick={vote(blogs)}>
+          <p>likes {blog.likes}</p>
+          <button
+            id={blog.id}
+            onClick={() => {
+              vote(blog);
+            }}
+          >
             Like
-          </button> */}
+          </button>
         </div>
       </div>
     );
@@ -61,14 +69,14 @@ const Blog = () => {
     <div>
       {blogs
         .slice()
-        .sort((a, b) => b.votes - a.votes)
+        .sort((a, b) => b.likes - a.likes)
         .map((blog) => (
           <div className="blog" style={blogStyle} key={blog.id}>
             <p className="blogTitle">{blog.title}</p>
             <p className="blogAuthor">by {blog.author}</p>
-            {/* <ShowHide className="showHide" buttonLabel="view" ref={blogFullRef}> */}
-            <FullBlogDetails blogs={blog} className="blogDetails" />
-            {/* </ShowHide> */}
+            <ShowHide className="showHide" buttonLabel="view">
+              <FullBlogDetails blog={blog} className="blogDetails" />
+            </ShowHide>
             <button>Remove</button>
           </div>
         ))}
