@@ -12,7 +12,7 @@ const BlogForm = () => {
       url: e.target.url.value,
     };
     dispatch(createBlog(content));
-    dispatch(notifChange(`<${content.title}> is created`, 5));
+    dispatch(notifChange(`<${content.title}> is created`, "success", 5));
     e.target.title.value = "";
     e.target.author.value = "";
     e.target.url.value = "";

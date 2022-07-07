@@ -8,18 +8,22 @@ const notifSlice = createSlice({
   initialState,
   reducers: {
     newNotif(state, action) {
-      state = action.payload;
-      return state;
+      return action.payload;
     },
   },
 });
 
 export const { newNotif } = notifSlice.actions;
 
-export const notifChange = (notif, time) => {
+export const notifChange = (notif, notifType, time) => {
   return async (dispatch) => {
     clearTimeout(timeoutId);
-    dispatch(newNotif(notif));
+    dispatch(
+      newNotif({
+        message: notif,
+        type: notifType,
+      })
+    );
 
     timeoutId = setTimeout(() => {
       dispatch(newNotif(initialState));

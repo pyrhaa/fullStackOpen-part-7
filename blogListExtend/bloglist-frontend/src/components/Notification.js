@@ -31,14 +31,14 @@ const Notification = () => {
   if (notification.type === "success") {
     return (
       <div id="success" style={success}>
-        {notification}
+        {notification.message}
       </div>
     );
   } else {
     return (
       <div>
         <div id="error" style={error}>
-          {notification}
+          {notification.message}
         </div>
       </div>
     );

@@ -27,7 +27,7 @@ const Blog = () => {
 
   const vote = (data) => {
     dispatch(voteOf(data.id));
-    dispatch(notifChange(`You voted for <${data.title}>`, 5));
+    dispatch(notifChange(`You voted for <${data.title}>`, "success", 5));
   };
 
   // const likeUp = (e) => {

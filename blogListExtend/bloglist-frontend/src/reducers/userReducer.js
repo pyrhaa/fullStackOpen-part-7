@@ -1,5 +1,6 @@
 import loginService from "../services/login";
 import blogService from "../services/blogs";
+import notifChange from "./notifReducer";
 
 const userReducer = (state = null, action) => {
   switch (action.type) {
@@ -33,17 +34,22 @@ export const settingUser = () => {
 
 export const login = (username, password) => {
   return async (dispatch) => {
-    const user = await loginService.login({
-      username,
-      password,
-    });
+    try {
+      const user = await loginService.login({
+        username,
+        password,
+      });
 
-    window.localStorage.setItem("loggedBlogappUser", JSON.stringify(user));
-    blogService.setToken(user.token);
-    dispatch({
-      type: "LOGIN",
-      user: user,
-    });
+      window.localStorage.setItem("loggedBlogappUser", JSON.stringify(user));
+      blogService.setToken(user.token);
+      dispatch({
+        type: "LOGIN",
+        user: user,
+      });
+      dispatch(notifChange("nice to see you !", "success", 5));
+    } catch (error) {
+      dispatch(notifChange("wrong username or password", "error", 5));
+    }
   };
 };
 
