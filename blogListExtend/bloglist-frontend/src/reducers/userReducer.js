@@ -34,22 +34,17 @@ export const settingUser = () => {
 
 export const login = (username, password) => {
   return async (dispatch) => {
-    try {
-      const user = await loginService.login({
-        username,
-        password,
-      });
+    const user = await loginService.login({
+      username,
+      password,
+    });
 
-      window.localStorage.setItem("loggedBlogappUser", JSON.stringify(user));
-      blogService.setToken(user.token);
-      dispatch({
-        type: "LOGIN",
-        user: user,
-      });
-      dispatch(notifChange("nice to see you !", "success", 5));
-    } catch (error) {
-      dispatch(notifChange("wrong username or password", "error", 5));
-    }
+    window.localStorage.setItem("loggedBlogappUser", JSON.stringify(user));
+    blogService.setToken(user.token);
+    dispatch({
+      type: "LOGIN",
+      user: user,
+    });
   };
 };
 
