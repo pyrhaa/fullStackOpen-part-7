@@ -2,7 +2,8 @@ import React from "react";
 import ShowHide from "./ShowHide";
 import { useSelector, useDispatch } from "react-redux";
 import { voteOf } from "../reducers/blogReducers";
-import { notifChange } from "../reducers/notifReducer";
+// import { notifChange } from "../reducers/notifReducer";
+import { setNotification } from "../reducers/notifReducer";
 
 const Blog = () => {
   // const blogFullRef = useRef();
@@ -27,7 +28,10 @@ const Blog = () => {
 
   const vote = (data) => {
     dispatch(voteOf(data.id));
-    dispatch(notifChange(`You voted for <${data.title}>`, "success", 5));
+    // dispatch(notifChange(`You voted for <${data.title}>`, "success", 5));
+    dispatch(
+      setNotification(`Blog ${data.title} successfully deleted`, "success", 5)
+    );
   };
 
   // const likeUp = (e) => {

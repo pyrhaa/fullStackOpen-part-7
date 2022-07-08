@@ -1,6 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import thunk from "redux-thunk";
-import { composeWithDevTools, applyMiddleware } from "redux-devtools-extension";
+import { composeWithDevTools } from "redux-devtools-extension";
 import blogReducer, { setBlogs } from "./reducers/blogReducers";
 import filterReducer from "./reducers/filterReducer";
 import userReducer from "./reducers/userReducer";
@@ -18,7 +17,7 @@ const store = configureStore(
       notification: notifReducer,
     },
   },
-  composeWithDevTools(applyMiddleware(thunk))
+  composeWithDevTools()
 );
 
 blogService.getAll().then((blogs) => store.dispatch(setBlogs(blogs)));
