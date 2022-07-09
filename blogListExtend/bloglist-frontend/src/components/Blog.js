@@ -1,7 +1,7 @@
 import React from "react";
 import ShowHide from "./ShowHide";
 import { useSelector, useDispatch } from "react-redux";
-import { voteOf } from "../reducers/blogReducers";
+import { voteOf, deleteBlog } from "../reducers/blogReducers";
 import { setNotif } from "../reducers/notifReducer";
 
 const Blog = () => {
@@ -30,21 +30,10 @@ const Blog = () => {
     dispatch(setNotif(`Blog ${data.title} voted`, "success", 5));
   };
 
-  // const likeUp = (e) => {
-  //   e.preventDefault();
-  //   const updatedBlog = {
-  //     ...blog,
-  //     likes: blog.likes + 1,
-  //   };
-  //   upBlog(updatedBlog);
-  // };
-
-  // const deleted = (e) => {
-  //   e.preventDefault();
-  //   if (window.confirm(`Delete ${blog.title}`)) {
-  //     removeBlog(blog.id);
-  //   }
-  // };
+  const deleted = (id) => {
+    dispatch(setNotif("Blog successfully deleted", "success", 5));
+    dispatch(deleteBlog(id));
+  };
 
   const FullBlogDetails = ({ blog }) => {
     return (
@@ -59,6 +48,13 @@ const Blog = () => {
             }}
           >
             Like
+          </button>
+          <button
+            onClick={() => {
+              deleted(blog.id);
+            }}
+          >
+            Remove
           </button>
         </div>
       </div>
@@ -77,7 +73,6 @@ const Blog = () => {
             <ShowHide className="showHide" buttonLabel="view">
               <FullBlogDetails blog={blog} className="blogDetails" />
             </ShowHide>
-            <button>Remove</button>
           </div>
         ))}
     </div>

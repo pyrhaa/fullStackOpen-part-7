@@ -30,9 +30,7 @@ const deletes = async (id) => {
   const config = {
     headers: { Authorization: token },
   };
-
   const response = await axios.delete(`${baseUrl}/${id}`, config);
-  console.log("response.data:", response);
   return response.data;
 };
 
