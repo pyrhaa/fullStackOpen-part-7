@@ -23,6 +23,7 @@ const success = {
 
 const Notification = () => {
   const notification = useSelector((state) => state.notification);
+  console.log(notification);
 
   if (notification === null) {
     return null;
@@ -31,14 +32,14 @@ const Notification = () => {
   if (notification.type === "success") {
     return (
       <div id="success" style={success}>
-        {notification.message}
+        {notification.text}
       </div>
     );
   } else {
     return (
       <div>
         <div id="error" style={error}>
-          {notification.message}
+          {notification.text}
         </div>
       </div>
     );

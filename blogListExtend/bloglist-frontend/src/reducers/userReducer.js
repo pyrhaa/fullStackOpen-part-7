@@ -1,6 +1,6 @@
 import loginService from "../services/login";
 import blogService from "../services/blogs";
-import { setNotification } from "./notifReducer";
+import { setNotif } from "./notifReducer";
 
 const userReducer = (state = null, action) => {
   switch (action.type) {
@@ -46,9 +46,15 @@ export const login = (username, password) => {
         type: "LOGIN",
         user: user,
       });
+      dispatch(settingUser());
     } catch (error) {
-      console.log(error);
-      dispatch(setNotification("wrong credentials", "error", 5));
+      dispatch(
+        setNotif(
+          "wrong username, password or field the form please",
+          "error",
+          5
+        )
+      );
     }
   };
 };
