@@ -35,9 +35,12 @@ export const createBlog = (content) => {
   };
 };
 
-export const voteOf = (id) => {
+export const voteOf = (blog) => {
   return async (dispatch) => {
-    const votedBlog = await blogService.update(id);
+    const votedBlog = await blogService.update(blog.id, {
+      ...blog,
+      likes: blog.likes + 1,
+    });
     dispatch(vote(votedBlog));
   };
 };

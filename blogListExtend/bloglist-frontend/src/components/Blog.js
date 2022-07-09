@@ -26,7 +26,7 @@ const Blog = () => {
   const dispatch = useDispatch();
 
   const vote = (data) => {
-    dispatch(voteOf(data.id));
+    dispatch(voteOf(data));
     dispatch(setNotif(`Blog ${data.title} voted`, "success", 5));
   };
 
