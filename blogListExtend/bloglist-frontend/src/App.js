@@ -4,9 +4,11 @@ import Blog from "./components/Blog";
 import Notification from "./components/Notification";
 import BlogForm from "./components/BlogForm";
 import Login from "./components/Login";
+import Menu from "./components/Menu";
+import Footer from "./components/Footer";
 import Togglable from "./components/Togglable";
 import { initializeBlogs } from "./reducers/blogReducers";
-import { settingUser, logout } from "./reducers/userReducer";
+import { settingUser } from "./reducers/userReducer";
 import { initializeUsers } from "./reducers/usersReducer";
 
 const App = () => {
@@ -21,11 +23,6 @@ const App = () => {
     dispatch(initializeUsers());
   }, [dispatch]);
 
-  const handleLogout = async (event) => {
-    event.preventDefault();
-    dispatch(logout());
-  };
-
   if (user === null) {
     return (
       <div>
@@ -37,15 +34,15 @@ const App = () => {
     return (
       <div>
         <Notification />
+        <Menu user={user} />
         <h2>blogs</h2>
-        <div>
-          {user.name} logged-in <button onClick={handleLogout}>logout</button>
-        </div>
+
         <h2>create new blog</h2>
         <Togglable buttonLabel="Blog Form" ref={blogFormRef}>
           <BlogForm />
         </Togglable>
         <Blog />
+        <Footer />
       </div>
     );
   }
