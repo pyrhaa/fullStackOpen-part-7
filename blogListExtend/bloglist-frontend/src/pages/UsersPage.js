@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 const UsersPage = () => {
   const users = useSelector((state) => state.users);
-  console.log(users);
   return (
     <div>
       <h1>Users</h1>
