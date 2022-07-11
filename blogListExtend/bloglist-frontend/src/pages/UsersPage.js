@@ -1,8 +1,17 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { initializeUsers } from "../reducers/usersReducer";
 
 const UsersPage = () => {
+  const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
+  const blogs = useSelector((state) => state.blogs);
+
+  useEffect(() => {
+    dispatch(initializeUsers());
+  }, [blogs]);
+
   return (
     <div>
       <h1>Users</h1>
@@ -14,12 +23,12 @@ const UsersPage = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map(({ id, name, blogs }) => (
-            <tr key={id}>
+          {users.map((user) => (
+            <tr key={user.id}>
               <td>
-                <Link to={`/users/${id}`}>{name}</Link>
+                <Link to={`/users/${user.id}`}>{user.name}</Link>
               </td>
-              <td>{blogs.length}</td>
+              <td>{user.blogs.length}</td>
             </tr>
           ))}
         </tbody>

@@ -14,6 +14,8 @@ const Blog = () => {
     marginBottom: 5,
   };
 
+  const user = useSelector((state) => state.user);
+
   const blogs = useSelector((state) => {
     if (state.filter.length) {
       return state.blogs.filter((el) =>
@@ -23,6 +25,7 @@ const Blog = () => {
       return state.blogs;
     }
   });
+
   const dispatch = useDispatch();
 
   const vote = (data) => {
@@ -36,29 +39,48 @@ const Blog = () => {
   };
 
   const FullBlogDetails = ({ blog }) => {
-    return (
-      <div>
-        <p>{blog.url}</p>
+    if (blog.user.username !== user.username) {
+      return (
         <div>
-          <p>likes {blog.likes}</p>
-          <button
-            id={blog.id}
-            onClick={() => {
-              vote(blog);
-            }}
-          >
-            Like
-          </button>
-          <button
-            onClick={() => {
-              deleted(blog.id);
-            }}
-          >
-            Remove
-          </button>
+          <p>{blog.url}</p>
+          <div>
+            <p>likes {blog.likes}</p>
+            <button
+              id={blog.id}
+              onClick={() => {
+                vote(blog);
+              }}
+            >
+              Like
+            </button>
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div>
+          <p>{blog.url}</p>
+          <div>
+            <p>likes {blog.likes}</p>
+            <button
+              id={blog.id}
+              onClick={() => {
+                vote(blog);
+              }}
+            >
+              Like
+            </button>
+            <button
+              onClick={() => {
+                deleted(blog.id);
+              }}
+            >
+              Remove
+            </button>
+          </div>
+        </div>
+      );
+    }
   };
 
   return (
