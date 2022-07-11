@@ -8,6 +8,7 @@ const Home = () => {
 
   return (
     <div>
+      <h2>create new blog</h2>
       <Togglable buttonLabel="Blog Form" ref={blogFormRef}>
         <BlogForm />
       </Togglable>

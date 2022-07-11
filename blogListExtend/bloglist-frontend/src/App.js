@@ -33,7 +33,6 @@ const App = () => {
         <Menu user={user} />
         <h2>blog app</h2>
         <PagesRoute />
-        <h2>create new blog</h2>
 
         <Footer />
       </div>

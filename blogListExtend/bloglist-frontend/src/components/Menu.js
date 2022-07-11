@@ -1,4 +1,4 @@
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../reducers/userReducer";
 
@@ -17,15 +17,15 @@ const Menu = ({ user }) => {
   return (
     <div>
       <nav>
-        <a style={padding} to="/">
+        <Link style={padding} to="/">
           Home
-        </a>
+        </Link>
         <a style={padding} to="/anecdotes">
           blogs
         </a>
-        <a style={padding} to="/create">
+        <Link style={padding} to="/users">
           users
-        </a>
+        </Link>
       </nav>
       <div>
         {user.name} logged-in <button onClick={handleLogout}>logout</button>
