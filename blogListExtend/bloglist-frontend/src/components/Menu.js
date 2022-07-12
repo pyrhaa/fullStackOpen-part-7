@@ -23,10 +23,8 @@ const Menu = ({ user }) => {
         <Link style={padding} to="/users">
           users
         </Link>
-      </nav>
-      <div>
         {user.name} logged-in <button onClick={handleLogout}>logout</button>
-      </div>
+      </nav>
     </div>
   );
 };

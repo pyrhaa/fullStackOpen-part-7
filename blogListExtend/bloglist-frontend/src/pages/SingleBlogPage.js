@@ -44,13 +44,14 @@ const SingleBlogPage = () => {
   } else {
     return (
       <div>
-        <h3>{blog.title}</h3>
-        <p>by {blog.author}</p>
-        <p>{blog.url}</p>
-        <p>posted by {blog.user.username}</p>
+        <h3>
+          {blog.title} by {blog.author}
+        </h3>
         <div>
+          <p>{blog.url}</p>
           <p>likes {blog.likes}</p>
           <button onClick={() => vote(blog)}>Like</button>
+          <p>posted by {blog.user.username}</p>
         </div>
       </div>
     );
