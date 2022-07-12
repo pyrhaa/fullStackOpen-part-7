@@ -1,11 +1,10 @@
 import React from "react";
-import ShowHide from "./ShowHide";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { voteOf, deleteBlog } from "../reducers/blogReducers";
+import { deleteBlog } from "../reducers/blogReducers";
 import { setNotif } from "../reducers/notifReducer";
 
 const Blog = () => {
-  // const blogFullRef = useRef();
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -28,59 +27,9 @@ const Blog = () => {
 
   const dispatch = useDispatch();
 
-  const vote = (data) => {
-    dispatch(voteOf(data));
-    dispatch(setNotif(`Blog ${data.title} voted`, "success", 5));
-  };
-
   const deleted = (id) => {
     dispatch(setNotif("Blog successfully deleted", "success", 5));
     dispatch(deleteBlog(id));
-  };
-
-  const FullBlogDetails = ({ blog }) => {
-    if (blog.user.username !== user.username) {
-      return (
-        <div>
-          <p>{blog.url}</p>
-          <div>
-            <p>likes {blog.likes}</p>
-            <button
-              id={blog.id}
-              onClick={() => {
-                vote(blog);
-              }}
-            >
-              Like
-            </button>
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <p>{blog.url}</p>
-          <div>
-            <p>likes {blog.likes}</p>
-            <button
-              id={blog.id}
-              onClick={() => {
-                vote(blog);
-              }}
-            >
-              Like
-            </button>
-            <button
-              onClick={() => {
-                deleted(blog.id);
-              }}
-            >
-              Remove
-            </button>
-          </div>
-        </div>
-      );
-    }
   };
 
   return (
@@ -88,15 +37,24 @@ const Blog = () => {
       {blogs
         .slice()
         .sort((a, b) => b.likes - a.likes)
-        .map((blog) => (
-          <div className="blog" style={blogStyle} key={blog.id}>
-            <p className="blogTitle">{blog.title}</p>
-            <p className="blogAuthor">by {blog.author}</p>
-            <ShowHide className="showHide" buttonLabel="view">
-              <FullBlogDetails blog={blog} className="blogDetails" />
-            </ShowHide>
-          </div>
-        ))}
+        .map((blog) => {
+          if (blog.user.username !== user.username) {
+            return (
+              <div className="blog" style={blogStyle} key={blog.id}>
+                <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+              </div>
+            );
+          } else {
+            return (
+              <div className="blog" style={blogStyle} key={blog.id}>
+                <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+                <div>
+                  <button onClick={() => deleted(blog.id)}>Remove</button>
+                </div>
+              </div>
+            );
+          }
+        })}
     </div>
   );
 };

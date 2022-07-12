@@ -20,9 +20,6 @@ const Menu = ({ user }) => {
         <Link style={padding} to="/">
           Home
         </Link>
-        <a style={padding} to="/anecdotes">
-          blogs
-        </a>
         <Link style={padding} to="/users">
           users
         </Link>

@@ -9,7 +9,6 @@ const PagesRoute = () => {
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/blogs" />
         <Route path="/blogs/:id" element={<SingleBlogPage />} />
         <Route path="/users" element={<UsersPage />} />
         <Route path="/users/:id" element={<SingleUserPage />} />
