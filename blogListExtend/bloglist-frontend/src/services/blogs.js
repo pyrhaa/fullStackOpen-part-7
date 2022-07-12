@@ -39,4 +39,11 @@ const deletes = async (id) => {
   return response.data;
 };
 
-export default { getAll, create, update, deletes, comments, setToken };
+export default {
+  getAll,
+  create,
+  update,
+  deletes,
+  comments,
+  setToken,
+};

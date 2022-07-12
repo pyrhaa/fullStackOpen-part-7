@@ -1,18 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useMatch } from "react-router-dom";
-import { voteOf } from "../reducers/blogReducers";
+import { voteOf, commentBlog } from "../reducers/blogReducers";
 import { setNotif } from "../reducers/notifReducer";
 
-const SingleBlogPage = () => {
-  const user = useSelector((state) => state.user);
-
-  const match = useMatch("/blogs/:id");
-  const blog = match
-    ? useSelector((state) =>
-        state.blogs.find((el) => el.id === match.params.id)
-      )
-    : null;
+//in this part, we handle that logged user can comment or like only blogs he doesnt posted himself
+const SingleBlogPage = ({ blog }) => {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
   const vote = (data) => {
     dispatch(voteOf(data));
@@ -23,7 +16,22 @@ const SingleBlogPage = () => {
     dispatch(setNotif("You cannot vote for your own blog !", "error", 5));
   };
 
-  if (!blog || blog === undefined) {
+  const handleComment = (e) => {
+    e.preventDefault();
+    console.log("e.target: ", e.target.comment.value);
+    const comment = {
+      comments: e.target.comment.value,
+    };
+    dispatch(commentBlog(blog.id, comment));
+    e.target.comment.value = "";
+  };
+
+  if (
+    !blog ||
+    blog === undefined ||
+    blog.comments === undefined ||
+    !blog.comments
+  ) {
     return null;
   } else if (
     blog.user.username === user.username ||
@@ -31,14 +39,23 @@ const SingleBlogPage = () => {
   ) {
     return (
       <div>
-        <h3>{blog.title}</h3>
-        <p>by {blog.author}</p>
-        <p>{blog.url}</p>
-        <p>posted by {blog.user.username}</p>
+        <h3>
+          {blog.title} by {blog.author}
+        </h3>
         <div>
+          <p>{blog.url}</p>
           <p>likes {blog.likes}</p>
           <button onClick={() => notVoteOwnBlog()}>Like</button>
+          <p>posted by {blog.user.username}</p>
         </div>
+        <h4>comments</h4>
+        <ul>
+          {blog.comments
+            ? blog.comments.map((el, index) => {
+                return <li key={index}>{el}</li>;
+              })
+            : null}
+        </ul>
       </div>
     );
   } else {
@@ -53,6 +70,19 @@ const SingleBlogPage = () => {
           <button onClick={() => vote(blog)}>Like</button>
           <p>posted by {blog.user.username}</p>
         </div>
+        <h4>comments</h4>
+        <form onSubmit={handleComment}>
+          <input type="text" name="comment" />
+          <button type="submit">add comment</button>
+        </form>
+        <ul>
+          {blog.comments
+            ? blog.comments.map((el, index) => {
+                console.log(el);
+                return <li key={index}>{el}</li>;
+              })
+            : null}
+        </ul>
       </div>
     );
   }

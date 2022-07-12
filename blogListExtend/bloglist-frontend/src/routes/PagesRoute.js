@@ -4,12 +4,12 @@ import UsersPage from "../pages/UsersPage";
 import SingleUserPage from "../pages/SingleUserPage";
 import SingleBlogPage from "../pages/SingleBlogPage";
 
-const PagesRoute = () => {
+const PagesRoute = ({ blog }) => {
   return (
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/blogs/:id" element={<SingleBlogPage />} />
+        <Route path="/blogs/:id" element={<SingleBlogPage blog={blog} />} />
         <Route path="/users" element={<UsersPage />} />
         <Route path="/users/:id" element={<SingleUserPage />} />
       </Routes>

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteBlog } from "../reducers/blogReducers";
 import { setNotif } from "../reducers/notifReducer";
 
+// here too, a blog can be removed only by the user who posted it
 const Blog = () => {
   const blogStyle = {
     paddingTop: 10,
