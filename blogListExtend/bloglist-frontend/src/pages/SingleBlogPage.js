@@ -19,11 +19,8 @@ const SingleBlogPage = ({ blog }) => {
   const handleComment = (e) => {
     e.preventDefault();
 
-    const comment = {
-      comments: e.target.comment.value,
-    };
-    console.log("comment obj handle: ", comment);
-    dispatch(commentBlog(blog.id, comment));
+    const comment = e.target.comment.value;
+    dispatch(commentBlog(blog, comment));
     e.target.comment.value = "";
     console.log("blog after comment: ", blog);
   };
@@ -35,10 +32,7 @@ const SingleBlogPage = ({ blog }) => {
     !blog.comments
   ) {
     return null;
-  } else if (
-    blog.user.username === user.username ||
-    blog.user.username === undefined
-  ) {
+  } else if (blog.user.username === user.username) {
     return (
       <div>
         <h3>
@@ -80,7 +74,6 @@ const SingleBlogPage = ({ blog }) => {
         <ul>
           {blog.comments
             ? blog.comments.map((el, index) => {
-                console.log(el);
                 return <li key={index}>{el}</li>;
               })
             : null}

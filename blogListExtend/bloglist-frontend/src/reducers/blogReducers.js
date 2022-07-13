@@ -12,11 +12,11 @@ const blogSlice = createSlice({
     },
     commenting(state, action) {
       const id = action.payload.id;
-      return state.map((blog) =>
-        blog.id !== id
-          ? blog
-          : { ...blog, comments: [...blog.comments, action.data] }
-      );
+      // console.log("id : ", id);
+      // console.log("action data : ", action.payload.comments);
+
+      const changedBlog = action.payload;
+      return state.map((blog) => (blog.id !== id ? blog : changedBlog));
     },
     deleting(state, action) {
       return state.filter((blog) => blog.id !== action.payload);
@@ -57,9 +57,12 @@ export const voteOf = (blog) => {
   };
 };
 
-export const commentBlog = (id, comment) => {
+export const commentBlog = (blog, comment) => {
   return async (dispatch) => {
-    const commentedBlog = await blogService.comments(id, comment);
+    const commentedBlog = await blogService.comments(blog.id, {
+      ...blog,
+      comments: [...blog.comments, comment],
+    });
     dispatch(commenting(commentedBlog));
   };
 };
