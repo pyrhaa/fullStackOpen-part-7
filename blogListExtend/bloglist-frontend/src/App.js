@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useMatch } from "react-router-dom";
+import { Container } from "@mui/material";
 import Notification from "./components/Notification";
 import Login from "./components/Login";
-import Menu from "./components/Menu";
+import MenuBar from "./components/MenuBar";
 import PagesRoute from "./routes/PagesRoute";
 import Footer from "./components/Footer";
 import { initializeBlogs } from "./reducers/blogReducers";
 import { settingUser } from "./reducers/userReducer";
 import { initializeUsers } from "./reducers/usersReducer";
+import Typography from "@mui/material/Typography";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -26,21 +28,28 @@ const App = () => {
 
   if (user === null) {
     return (
-      <div>
+      <Container>
         <Notification />
         <Login />
-      </div>
+      </Container>
     );
   } else {
     return (
-      <div>
+      <Container>
         <Notification />
-        <Menu user={user} />
-        <h2>blog app</h2>
+        <MenuBar user={user} />
+        <Typography
+          variant="h2"
+          gutterBottom
+          component="div"
+          align="center"
+          color="primary"
+        >
+          Blog App
+        </Typography>
         <PagesRoute blog={blog} />
-
         <Footer />
-      </div>
+      </Container>
     );
   }
 };
