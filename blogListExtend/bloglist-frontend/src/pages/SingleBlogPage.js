@@ -18,12 +18,14 @@ const SingleBlogPage = ({ blog }) => {
 
   const handleComment = (e) => {
     e.preventDefault();
-    console.log("e.target: ", e.target.comment.value);
+
     const comment = {
       comments: e.target.comment.value,
     };
+    console.log("comment obj handle: ", comment);
     dispatch(commentBlog(blog.id, comment));
     e.target.comment.value = "";
+    console.log("blog after comment: ", blog);
   };
 
   if (

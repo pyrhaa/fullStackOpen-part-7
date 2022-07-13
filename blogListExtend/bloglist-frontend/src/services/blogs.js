@@ -27,7 +27,14 @@ const update = async (id, newObject) => {
 };
 
 const comments = async (id, newObject) => {
-  const response = await axios.post(`${baseUrl}/${id}/comments`, newObject);
+  const config = {
+    headers: { Authorization: token },
+  };
+  const response = await axios.post(
+    `${baseUrl}/${id}/comments`,
+    newObject,
+    config
+  );
   return response.data;
 };
 
