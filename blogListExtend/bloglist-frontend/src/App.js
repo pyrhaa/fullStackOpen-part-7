@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useMatch } from "react-router-dom";
 import { Container } from "@mui/material";
 import Notification from "./components/Notification";
-import Login from "./components/Login";
+import LoginPage from "./pages/LoginPage";
 import MenuBar from "./components/MenuBar";
 import PagesRoute from "./routes/PagesRoute";
 import Footer from "./components/Footer";
@@ -28,30 +28,29 @@ const App = () => {
 
   if (user === null) {
     return (
-      <Container>
+      <Container component="main" maxWidth="xs">
         <Notification />
-        <Login />
-      </Container>
-    );
-  } else {
-    return (
-      <Container>
-        <Notification />
-        <MenuBar user={user} />
-        <Typography
-          variant="h2"
-          gutterBottom
-          component="div"
-          align="center"
-          color="primary"
-        >
-          Blog App
-        </Typography>
-        <PagesRoute blog={blog} />
-        <Footer />
+        <LoginPage />
       </Container>
     );
   }
+  return (
+    <Container>
+      <Notification />
+      <MenuBar user={user} />
+      <Typography
+        variant="h2"
+        gutterBottom
+        component="div"
+        align="center"
+        color="primary"
+      >
+        Blog App
+      </Typography>
+      <PagesRoute blog={blog} />
+      <Footer />
+    </Container>
+  );
 };
 
 export default App;

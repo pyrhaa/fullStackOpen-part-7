@@ -1,6 +1,8 @@
 import { useDispatch } from "react-redux";
 import { setNotif } from "../reducers/notifReducer";
 import { login } from "../reducers/userReducer";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -17,22 +19,37 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <Stack
+      component="form"
+      sx={{
+        width: "25ch",
+      }}
+      spacing={2}
+      noValidate
+      autoComplete="off"
+      onSubmit={handleLog}
+    >
       <h2>log in to application</h2>
       <form onSubmit={handleLog}>
-        <div>
-          username
-          <input type="text" name="username" />
-        </div>
-        <div>
-          password
-          <input type="password" name="password" />
-        </div>
+        <TextField
+          id="filled-username-input"
+          label="Username"
+          type="text"
+          variant="filled"
+        />
+
+        <TextField
+          id="filled-password-input"
+          label="Password"
+          type="password"
+          autoComplete="current-password"
+          variant="filled"
+        />
         <button id="login-button" type="submit">
           login
         </button>
       </form>
-    </div>
+    </Stack>
   );
 };
 
