@@ -4,6 +4,7 @@ import { createBlog } from "../reducers/blogReducers";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
 
 const BlogForm = () => {
   const dispatch = useDispatch();
@@ -24,56 +25,58 @@ const BlogForm = () => {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <form onSubmit={create}>
-        <TextField
-          id="filled-title-input"
-          label="Title"
-          type="text"
-          variant="filled"
-          margin="normal"
-          required
-          fullWidth
-          autoFocus
-        />
-        <TextField
-          id="filled-author-input"
-          label="Author"
-          type="text"
-          variant="filled"
-          margin="normal"
-          required
-          fullWidth
-          autoFocus
-        />
-        <TextField
-          id="filled-url-input"
-          label="Url"
-          type="text"
-          variant="filled"
-          margin="normal"
-          required
-          fullWidth
-          autoFocus
-        />
-        <Button
-          id="create-button"
-          type="submit"
-          variant="contained"
-          color="primary"
-          fullWidth
-          sx={{ mt: 3, mb: 2 }}
-        >
-          create
-        </Button>
-      </form>
-    </Box>
+    <Paper>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <form onSubmit={create}>
+          <TextField
+            id="filled-title-input"
+            label="Title"
+            type="text"
+            variant="filled"
+            margin="normal"
+            required
+            fullWidth
+            autoFocus
+          />
+          <TextField
+            id="filled-author-input"
+            label="Author"
+            type="text"
+            variant="filled"
+            margin="normal"
+            required
+            fullWidth
+            autoFocus
+          />
+          <TextField
+            id="filled-url-input"
+            label="Url"
+            type="text"
+            variant="filled"
+            margin="normal"
+            required
+            fullWidth
+            autoFocus
+          />
+          <Button
+            id="create-button"
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            sx={{ mt: 3, mb: 2 }}
+          >
+            create
+          </Button>
+        </form>
+      </Box>
+    </Paper>
   );
 };
 
