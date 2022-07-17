@@ -1,25 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-
-const error = {
-  color: "red",
-  border: "4px solid red",
-  background: "lightgrey",
-  fontSize: 20,
-  borderRadius: 5,
-  padding: 10,
-  marginBottom: 10,
-};
-
-const success = {
-  color: "green",
-  border: "4px solid green",
-  background: "lightgrey",
-  fontSize: 20,
-  borderRadius: 5,
-  padding: 10,
-  marginBottom: 10,
-};
+import Alert from "@mui/material/Alert";
 
 const Notification = () => {
   const notification = useSelector((state) => state.notification);
@@ -30,17 +11,15 @@ const Notification = () => {
 
   if (notification.type === "success") {
     return (
-      <div id="success" style={success}>
+      <Alert id="success" severity="success">
         {notification.text}
-      </div>
+      </Alert>
     );
   } else {
     return (
-      <div>
-        <div id="error" style={error}>
-          {notification.text}
-        </div>
-      </div>
+      <Alert id="error" severity="error">
+        {notification.text}
+      </Alert>
     );
   }
 };

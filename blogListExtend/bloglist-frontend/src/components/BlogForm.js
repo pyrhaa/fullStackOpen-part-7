@@ -1,43 +1,79 @@
 import { useDispatch } from "react-redux";
 import { setNotif } from "../reducers/notifReducer";
 import { createBlog } from "../reducers/blogReducers";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 
 const BlogForm = () => {
   const dispatch = useDispatch();
   const create = async (e) => {
     e.preventDefault();
     const content = {
-      title: e.target.title.value,
-      author: e.target.author.value,
-      url: e.target.url.value,
+      title: e.target[0].value,
+      author: e.target[1].value,
+      url: e.target[2].value,
     };
     dispatch(createBlog(content));
     dispatch(
       setNotif(`Blog ${content.title} successfully created`, "success", 5)
     );
-    e.target.title.value = "";
-    e.target.author.value = "";
-    e.target.url.value = "";
+    e.target[0].value = "";
+    e.target[1].value = "";
+    e.target[2].value = "";
   };
 
   return (
-    <form className="form" onSubmit={create}>
-      <div>
-        title:
-        <input className="titleInput" type="text" name="title" />
-      </div>
-      <div>
-        author:
-        <input className="authorInput" type="text" name="author" />
-      </div>
-      <div>
-        url:
-        <input className="urlInput" type="text" name="url" />
-      </div>
-      <button className="submitBtn" type="submit">
-        create
-      </button>
-    </form>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <form onSubmit={create}>
+        <TextField
+          id="filled-title-input"
+          label="Title"
+          type="text"
+          variant="filled"
+          margin="normal"
+          required
+          fullWidth
+          autoFocus
+        />
+        <TextField
+          id="filled-author-input"
+          label="Author"
+          type="text"
+          variant="filled"
+          margin="normal"
+          required
+          fullWidth
+          autoFocus
+        />
+        <TextField
+          id="filled-url-input"
+          label="Url"
+          type="text"
+          variant="filled"
+          margin="normal"
+          required
+          fullWidth
+          autoFocus
+        />
+        <Button
+          id="create-button"
+          type="submit"
+          variant="contained"
+          color="primary"
+          fullWidth
+          sx={{ mt: 3, mb: 2 }}
+        >
+          create
+        </Button>
+      </form>
+    </Box>
   );
 };
 
