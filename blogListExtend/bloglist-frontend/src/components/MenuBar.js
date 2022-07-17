@@ -13,40 +13,27 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import AccountCircle from "@mui/icons-material/AccountCircle";
 
 const MenuBar = ({ user }) => {
   const dispatch = useDispatch();
-
-  // const padding = {
-  //   paddingRight: 5,
-  // };
-
-  // const handleLogout = async (e) => {
-  //   e.preventDefault();
-  //   dispatch(logout());
-  // };
-
-  // return (
-  //   <div>
-  //     <nav>
-  //       <Link style={padding} to="/">
-  //         Home
-  //       </Link>
-  //       <Link style={padding} to="/users">
-  //         users
-  //       </Link>
-  //       {user.name} logged-in <button onClick={handleLogout}>logout</button>
-  //     </nav>
-  //   </div>
-  // );
   const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
+  const handleOpenNavMenu = (e) => {
+    setAnchorElNav(e.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+  };
+
+  const handleMenuUser = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenuUser = () => {
+    setAnchorEl(null);
   };
 
   const handleLogout = async (e) => {
@@ -153,7 +140,34 @@ const MenuBar = ({ user }) => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            {user.name} logged-in <button onClick={handleLogout}>logout</button>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenuUser}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleCloseMenuUser}
+            >
+              <MenuItem onClick={handleLogout}>logout</MenuItem>
+            </Menu>
+            {user.name} logged-in
           </Box>
         </Toolbar>
       </Container>
